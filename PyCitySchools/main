@@ -50,3 +50,36 @@ passing_math_reading_count = school_data_complete[
 ].count()["student_name"]
 overall_passing_rate = passing_math_reading_count / (student_count) * 100
 overall_passing_rate
+
+import pandas as pd
+
+# Assuming you have the necessary variables defined (e.g., school_count, student_count, total_budget, etc.)
+
+# Create a high-level snapshot of the district's key metrics in a DataFrame
+district_summary = pd.DataFrame(
+    {
+        "Total Schools": [school_count],
+        "Total Students": [student_count],
+        "Total Budget": [total_budget],
+        "Average Math Score": [average_math_score],
+        "Average Reading Score": [average_reading_score],
+        "%Passing Math": [passing_math_percentage],
+        "%Passing Reading": [passing_reading_percentage],
+        "%Overall Passing": [overall_passing_rate]
+    }
+)
+
+# Formatting
+format_dict = {
+    "Total Students": "{:,}",
+    "Total Budget": "${:,.2f}",
+    "%Passing Math": "{:.2f}%",
+    "%Passing Reading": "{:.2f}%",
+    "%Overall Passing": "{:.2f}%"
+}
+
+# Apply formatting using style.format
+styled_district_summary = district_summary.style.format(format_dict)
+
+# Display the styled DataFrame
+styled_district_summary
