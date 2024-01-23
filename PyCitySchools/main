@@ -15,15 +15,15 @@ school_data_complete = pd.merge(student_data, school_data, how="left", on=["scho
 school_data_complete.head()
 
 # Calculate the total number of unique schools
-school_count = school_data_complete["school_name"].value_counts()
+#school_count = school_data_complete["school_name"].value_counts()
+school_count = len(school_data_complete["school_name"].unique())
 school_count
 
 # Calculate the total number of students
-student_count = school_data_complete["student_name"].value_counts()
+student_count = school_data_complete["student_name"].count()
 student_count
 
-# Calculate the total budget
-total_budget = school_data_complete["budget"].sum()
+total_budget = school_data_complete["budget"].unique().sum()
 total_budget
 
 # Calculate the average (mean) math score
@@ -51,10 +51,6 @@ passing_math_reading_count = school_data_complete[
 overall_passing_rate = passing_math_reading_count / (student_count) * 100
 overall_passing_rate
 
-import pandas as pd
-
-# Assuming you have the necessary variables defined (e.g., school_count, student_count, total_budget, etc.)
-
 # Create a high-level snapshot of the district's key metrics in a DataFrame
 district_summary = pd.DataFrame(
     {
@@ -69,17 +65,13 @@ district_summary = pd.DataFrame(
     }
 )
 
-# Formatting
-format_dict = {
-    "Total Students": "{:,}",
-    "Total Budget": "${:,.2f}",
-    "%Passing Math": "{:.2f}%",
-    "%Passing Reading": "{:.2f}%",
-    "%Overall Passing": "{:.2f}%"
-}
-
-# Apply formatting using style.format
-styled_district_summary = district_summary.style.format(format_dict)
+#Formatting
+district_summary["Total Students"] = district_summary["Total Students"].map("{:,}".format)
+district_summary["Total Budget"] = district_summary["Total Budget"].map("${:,.2f}".format)
+district_summary["%Passing Math"] = district_summary["%Passing Math"].map("{:.2f}%".format)
+district_summary["%Passing Reading"] = district_summary["%Passing Reading"].map("{:.2f}%".format)
+district_summary["%Overall Passing"] = district_summary["%Overall Passing"].map("{:.2f}%".format)
 
 # Display the styled DataFrame
-styled_district_summary
+district_summary
+
