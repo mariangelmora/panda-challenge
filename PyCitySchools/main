@@ -197,3 +197,14 @@ reading_scores_by_grade.index.name = None
 
 # Display the DataFrame
 reading_scores_by_grade
+
+# Establish the bins 
+spending_bins = [0, 585, 630, 645, 680]
+labels = ["<$585", "$585-630", "$630-645", "$645-680"]
+
+# Create a copy of the school summary since it has the "Per Student Budget" 
+school_spending_df = per_school_summary.copy()
+
+# Use `pd.cut` to categorize spending based on the bins.
+school_spending_df["Spending Ranges (Per Student Budget)"] = pd.cut(school_spending_df["Spending Ranges (Per Student Budget)"], bins=bins, labels=labels)
+school_spending_df
