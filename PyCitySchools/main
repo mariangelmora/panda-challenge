@@ -139,3 +139,32 @@ top_schools.head()
 # Sort the schools by `% Overall Passing` in ascending order and display the top 5 rows.
 bottom_schools = per_school_summary.sort_values(by = ['% Overall Passing'], ascending = True)
 bottom_schools.head(5)
+
+# Use the code provided to separate the data by grade
+ninth_graders = school_data_complete[(school_data_complete["grade"] == "9th")]
+tenth_graders = school_data_complete[(school_data_complete["grade"] == "10th")]
+eleventh_graders = school_data_complete[(school_data_complete["grade"] == "11th")]
+twelfth_graders = school_data_complete[(school_data_complete["grade"] == "12th")]
+
+# Group by `school_name` and take the mean of the `math_score` column for each.
+ninth_grade_math_scores = ninth_graders.groupby('school_name')['math_score'].mean()
+tenth_grade_math_scores = tenth_graders.groupby('school_name')['math_score'].mean()
+eleventh_grade_math_scores = eleventh_graders.groupby('school_name')['math_score'].mean()
+twelfth_grade_math_scores = twelfth_graders.groupby('school_name')['math_score'].mean()
+
+
+# Combine each of the scores above into single DataFrame called `math_scores_by_grade`
+math_scores_by_grade = pd.DataFrame({
+    "9th": ninth_grade_math_scores,
+    "10th": tenth_grade_math_scores,
+    "11th": eleventh_grade_math_scores,
+    "12th": twelfth_grade_math_scores
+        
+    }
+)
+
+# Minor data wrangling
+math_scores_by_grade.index.name = None
+
+# Display the DataFrame
+math_scores_by_grade
