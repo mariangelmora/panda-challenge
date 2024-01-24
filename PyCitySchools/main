@@ -132,4 +132,10 @@ per_school_summary.reset_index(inplace=True)  # Resetting the index for cleaner 
 per_school_summary.rename(columns={"index": "School Name"}, inplace=True)  # Renaming index to "School Name" 
 per_school_summary
 
+# Sort the schools by `% Overall Passing` in descending order and display the top 5 rows.
+top_schools = per_school_summary.sort_values(by = ['% Overall Passing'], ascending = False)
+top_schools.head()
 
+# Sort the schools by `% Overall Passing` in ascending order and display the top 5 rows.
+bottom_schools = per_school_summary.sort_values(by = ['% Overall Passing'], ascending = True)
+bottom_schools.head(5)
