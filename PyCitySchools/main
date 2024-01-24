@@ -168,3 +168,32 @@ math_scores_by_grade.index.name = None
 
 # Display the DataFrame
 math_scores_by_grade
+
+# Use the code provided to separate the data by grade
+ninth_graders = school_data_complete[(school_data_complete["grade"] == "9th")]
+tenth_graders = school_data_complete[(school_data_complete["grade"] == "10th")]
+eleventh_graders = school_data_complete[(school_data_complete["grade"] == "11th")]
+twelfth_graders = school_data_complete[(school_data_complete["grade"] == "12th")]
+
+# Group by `school_name` and take the mean of the the `reading_score` column for each.
+ninth_grader_reading_scores = ninth_graders.groupby('school_name')['reading_score'].mean()
+tenth_grader_reading_scores = tenth_graders.groupby('school_name')['reading_score'].mean()
+eleventh_grader_reading_scores = eleventh_graders.groupby('school_name')['reading_score'].mean()
+twelfth_grader_reading_scores = twelfth_graders.groupby('school_name')['reading_score'].mean()
+
+# Combine each of the scores above into single DataFrame called `reading_scores_by_grade`
+reading_scores_by_grade = pd.DataFrame({
+    "9th": ninth_grader_reading_scores,
+    "10th": tenth_grader_reading_scores,
+    "11th": eleventh_grader_reading_scores,
+    "12th": twelfth_grader_reading_scores
+        
+    }
+)
+
+# Minor data wrangling
+reading_scores_by_grade = reading_scores_by_grade[["9th", "10th", "11th", "12th"]]
+reading_scores_by_grade.index.name = None
+
+# Display the DataFrame
+reading_scores_by_grade
