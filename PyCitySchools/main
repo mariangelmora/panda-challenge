@@ -259,3 +259,22 @@ size_summary = pd.DataFrame({
 
 # Display results
 size_summary
+
+# Group the per_school_summary DataFrame by "School Type" and average the results.
+average_math_score_by_type = per_school_summary.groupby(["School Type"])["Average Math Score"].mean()
+average_reading_score_by_type = per_school_summary.groupby(["School Type"])["Average Reading Score"].mean()
+average_percent_passing_math_by_type = per_school_summary.groupby(["School Type"])["% Passing Math"].mean()
+average_percent_passing_reading_by_type = per_school_summary.groupby(["School Type"])["% Passing Reading"].mean()
+average_percent_overall_passing_by_type = per_school_summary.groupby(["School Type"])["% Overall Passing"].mean()
+
+# Assemble the new data by type into a DataFrame called `type_summary`
+type_summary = pd.DataFrame({
+    "Average Math Score": average_math_score_by_type,
+    "Average Reading Score": average_reading_score_by_type,
+    "% Passing Math": average_percent_passing_math_by_type,
+    "% Passing Reading": average_percent_passing_reading_by_type,
+    "% Overall Passing": average_percent_overall_passing_by_type
+})
+
+# Display results
+type_summary
